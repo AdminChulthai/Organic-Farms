@@ -66,6 +66,13 @@
     .display-title { font-size: 2rem; font-weight: 700; letter-spacing: -0.5px; }
     .section-title { font-size: 1.25rem; font-weight: 600; color: var(--text-dark); }
     
+    /* === BUTTONS & INTERACTIVE (MOBILE FIX 100%) === */
+    button, .btn, .shop-item, .nav-link, .admin-nav-card, .admin-stat-card {
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
+      cursor: pointer;
+    }
+
     /* === FORM ELEMENTS === */
     .form-control, .form-select { 
       font-size: 1rem; 
@@ -315,9 +322,11 @@
       transition: all 0.3s ease;
     }
     
-    .golden-egg-display:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+    @media (hover: hover) {
+      .golden-egg-display:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+      }
     }
     
     .golden-egg-icon {
@@ -425,10 +434,12 @@
       transition: all 0.3s ease;
     }
     
-    .nav-pills-custom .nav-link:hover {
-      border-color: var(--primary-green);
-      transform: translateY(-2px);
-      box-shadow: var(--shadow-md);
+    @media (hover: hover) {
+      .nav-pills-custom .nav-link:hover {
+        border-color: var(--primary-green);
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-md);
+      }
     }
     
     #pills-record-tab.active { 
@@ -454,7 +465,7 @@
       border-color: var(--secondary-yellow);
       box-shadow: 0 6px 16px rgba(234, 179, 8, 0.3);
     }
-    
+
     /* === CARDS === */
     .card-custom { 
       border: none; 
@@ -466,8 +477,10 @@
       transition: all 0.3s ease;
     }
     
-    .card-custom:hover {
-      box-shadow: var(--shadow-lg);
+    @media (hover: hover) {
+      .card-custom:hover {
+        box-shadow: var(--shadow-lg);
+      }
     }
     
     .card-header-custom {
@@ -478,7 +491,7 @@
       font-size: 1.1rem;
       border: none;
     }
-    
+
     /* === SHOP ITEMS === */
     .shop-grid {
       display: grid;
@@ -511,14 +524,15 @@
       transition: opacity 0.3s ease;
     }
     
-    .shop-item:hover {
-      border-color: var(--secondary-yellow);
-      transform: translateY(-4px);
-      box-shadow: 0 8px 20px rgba(234, 179, 8, 0.2);
-    }
-    
-    .shop-item:hover::before {
-      opacity: 1;
+    @media (hover: hover) {
+      .shop-item:hover {
+        border-color: var(--secondary-yellow);
+        transform: translateY(-4px);
+        box-shadow: 0 8px 20px rgba(234, 179, 8, 0.2);
+      }
+      .shop-item:hover::before {
+        opacity: 1;
+      }
     }
     
     .shop-icon { 
@@ -561,11 +575,13 @@
       transition: all 0.3s ease;
     }
     
-    .shop-redeem-btn:hover {
-      background: var(--secondary-yellow);
-      color: white;
+    @media (hover: hover) {
+      .shop-redeem-btn:hover {
+        background: var(--secondary-yellow);
+        color: white;
+      }
     }
-    
+
     /* === CALENDAR === */
     .calendar-container {
       background: white;
@@ -628,7 +644,7 @@
       0%, 100% { box-shadow: 0 0 0 0 rgba(22, 163, 74, 0.4); }
       50% { box-shadow: 0 0 0 4px rgba(22, 163, 74, 0); }
     }
-    
+
     /* === CONDITIONAL SECTIONS === */
     .hidden-section { 
       display: none; 
@@ -644,7 +660,7 @@
       from { opacity: 0; transform: translateY(-10px); }
       to { opacity: 1; transform: translateY(0); }
     }
-    
+
     /* === ADMIN STYLES === */
     .admin-header {
       background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
@@ -727,7 +743,7 @@
     
     .admin-nav-cards {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(4, 1fr);
       gap: 1rem;
       margin-top: 1.5rem;
     }
@@ -757,14 +773,15 @@
       transition: opacity 0.3s ease;
     }
     
-    .admin-nav-card:hover {
-      transform: translateY(-4px);
-      border-color: rgba(255, 255, 255, 0.3);
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
-    }
-    
-    .admin-nav-card:hover::before {
-      opacity: 1;
+    @media (hover: hover) {
+      .admin-nav-card:hover {
+        transform: translateY(-4px);
+        border-color: rgba(255, 255, 255, 0.3);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+      }
+      .admin-nav-card:hover::before {
+        opacity: 1;
+      }
     }
     
     .admin-nav-card.active {
@@ -839,30 +856,20 @@
       transition: opacity 0.3s ease;
     }
     
-    .admin-stat-card:hover {
-      transform: translateY(-4px);
-      box-shadow: var(--shadow-lg);
+    @media (hover: hover) {
+      .admin-stat-card:hover {
+        transform: translateY(-4px);
+        box-shadow: var(--shadow-lg);
+      }
+      .admin-stat-card:hover::before {
+        opacity: 1;
+      }
     }
     
-    .admin-stat-card:hover::before {
-      opacity: 1;
-    }
-    
-    .admin-stat-card.stat-primary {
-      border-left-color: var(--primary-green);
-    }
-    
-    .admin-stat-card.stat-success {
-      border-left-color: var(--success);
-    }
-    
-    .admin-stat-card.stat-danger {
-      border-left-color: var(--danger);
-    }
-    
-    .admin-stat-card.stat-warning {
-      border-left-color: var(--secondary-yellow);
-    }
+    .admin-stat-card.stat-primary { border-left-color: var(--primary-green); }
+    .admin-stat-card.stat-success { border-left-color: var(--success); }
+    .admin-stat-card.stat-danger { border-left-color: var(--danger); }
+    .admin-stat-card.stat-warning { border-left-color: var(--secondary-yellow); }
     
     .admin-stat-icon {
       width: 48px;
@@ -894,31 +901,7 @@
       text-transform: uppercase;
       letter-spacing: 0.5px;
     }
-    
-    .admin-toggle-btn {
-      background: rgba(255, 255, 255, 0.2);
-      border: 2px solid rgba(255, 255, 255, 0.3);
-      color: white;
-      padding: 0.5rem 1.25rem;
-      border-radius: var(--radius-lg);
-      font-weight: 600;
-      font-size: 0.9rem;
-      transition: all 0.3s ease;
-      cursor: pointer;
-    }
-    
-    .admin-toggle-btn:hover {
-      background: rgba(255, 255, 255, 0.3);
-      transform: translateY(-2px);
-    }
-    
-    .admin-toggle-btn.active {
-      background: white;
-      color: var(--text-dark);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-      transform: translateY(-2px);
-    }
-    
+
     .admin-row { 
       background: white; 
       padding: 1.25rem 1.5rem; 
@@ -943,13 +926,14 @@
       transition: opacity 0.3s ease;
     }
     
-    .admin-row:hover {
-      box-shadow: var(--shadow-md);
-      transform: translateX(4px);
-    }
-    
-    .admin-row:hover::before {
-      opacity: 1;
+    @media (hover: hover) {
+      .admin-row:hover {
+        box-shadow: var(--shadow-md);
+        transform: translateX(4px);
+      }
+      .admin-row:hover::before {
+        opacity: 1;
+      }
     }
     
     .loss-high { 
@@ -1013,7 +997,228 @@
       background: #f3f4f6;
       color: #6b7280;
     }
+
+    /* === REDEMPTION MANAGEMENT === */
+    .redemption-card {
+      background: white;
+      border-radius: var(--radius-lg);
+      padding: 1.25rem;
+      margin-bottom: 1rem;
+      box-shadow: var(--shadow-sm);
+      border-left: 4px solid var(--secondary-yellow);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
     
+    .redemption-card.delivered {
+      border-left-color: var(--success);
+      opacity: 0.7;
+    }
+    
+    @media (hover: hover) {
+      .redemption-card:hover {
+        box-shadow: var(--shadow-md);
+        transform: translateX(4px);
+      }
+    }
+    
+    .redemption-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 1rem;
+      gap: 1rem;
+    }
+    
+    .redemption-farm {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .redemption-date {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+    
+    .redemption-status-badge {
+      padding: 0.35rem 0.85rem;
+      border-radius: var(--radius-xl);
+      font-size: 0.8rem;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    
+    .status-pending {
+      background: linear-gradient(135deg, #fef3c7, #fde68a);
+      color: #92400e;
+    }
+    
+    .status-delivered {
+      background: linear-gradient(135deg, #d1f4e0, #a7f3d0);
+      color: #065f46;
+    }
+    
+    .redemption-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem;
+      background: linear-gradient(135deg, #fef9e7, #fef3c7);
+      border-radius: var(--radius-md);
+      margin-bottom: 1rem;
+    }
+    
+    .redemption-item-icon {
+      font-size: 2.5rem;
+      flex-shrink: 0;
+    }
+    
+    .redemption-item-details {
+      flex: 1;
+    }
+    
+    .redemption-item-name {
+      font-weight: 600;
+      color: var(--text-dark);
+      margin-bottom: 0.25rem;
+    }
+    
+    .redemption-item-cost {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+    
+    .redemption-actions {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    /* Camera Modal */
+    .camera-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.95);
+      z-index: 4000;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 1rem;
+    }
+    
+    .camera-container {
+      width: 100%;
+      max-width: 500px;
+      background: #000;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-xl);
+    }
+    
+    #cameraPreview {
+      width: 100%;
+      height: auto;
+      display: block;
+      background: #000;
+    }
+    
+    #capturedImage {
+      width: 100%;
+      height: auto;
+      display: none;
+      background: #000;
+    }
+    
+    .camera-controls {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 2rem;
+      flex-wrap: wrap;
+    }
+    
+    .btn-camera {
+      padding: 1rem 2rem;
+      border-radius: var(--radius-xl);
+      font-weight: 600;
+      font-size: 1rem;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      touch-action: manipulation;
+    }
+    
+    .btn-camera-capture {
+      background: linear-gradient(135deg, var(--primary-green), var(--primary-dark));
+      color: white;
+      box-shadow: 0 4px 12px rgba(22, 163, 74, 0.4);
+    }
+    
+    @media (hover: hover) {
+      .btn-camera-capture:hover {
+        transform: scale(1.05);
+        box-shadow: 0 6px 16px rgba(22, 163, 74, 0.5);
+      }
+    }
+    
+    @media (hover: none) {
+      .btn-camera, .btn-camera-capture, .btn-camera-confirm, .btn-camera-retake, .btn-camera-cancel {
+        transform: none !important;
+        transition: none !important;
+      }
+      .btn-camera:active {
+        opacity: 0.8;
+      }
+    }
+    
+    .btn-camera-retake {
+      background: linear-gradient(135deg, var(--accent-orange), #ea580c);
+      color: white;
+    }
+    
+    .btn-camera-confirm {
+      background: linear-gradient(135deg, var(--success), #059669);
+      color: white;
+    }
+    
+    .btn-camera-cancel {
+      background: rgba(255, 255, 255, 0.2);
+      color: white;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+    }
+    
+    .empty-state {
+      text-align: center;
+      padding: 3rem 1.5rem;
+      color: var(--text-muted);
+    }
+    
+    .empty-state-icon {
+      font-size: 4rem;
+      margin-bottom: 1rem;
+      opacity: 0.5;
+    }
+    
+    .empty-state-text {
+      font-size: 1.1rem;
+      font-weight: 500;
+    }
+
     /* === BUTTONS === */
     .btn-primary {
       background: linear-gradient(135deg, var(--primary-green), var(--primary-dark));
@@ -1026,10 +1231,12 @@
       box-shadow: 0 4px 12px rgba(22, 163, 74, 0.3);
     }
     
-    .btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 16px rgba(22, 163, 74, 0.4);
-      background: linear-gradient(135deg, var(--primary-dark), var(--primary-green));
+    @media (hover: hover) {
+      .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 16px rgba(22, 163, 74, 0.4);
+        background: linear-gradient(135deg, var(--primary-dark), var(--primary-green));
+      }
     }
     
     .btn-success {
@@ -1038,22 +1245,13 @@
       color: white;
     }
     
-    .btn-success:hover {
-      background: var(--primary-dark);
-    }
-    
     .btn-outline-success {
       border: 2px solid var(--primary-green);
       color: var(--primary-green);
       background: white;
       font-weight: 600;
     }
-    
-    .btn-outline-success:hover {
-      background: var(--primary-green);
-      color: white;
-    }
-    
+
     /* === TABLES === */
     .table-custom {
       background: white;
@@ -1078,10 +1276,6 @@
       border-color: var(--border-light);
     }
     
-    .table-hover > tbody > tr:hover {
-      background: rgba(22, 163, 74, 0.05);
-    }
-    
     /* === ALERTS === */
     .alert-custom {
       border-radius: var(--radius-lg);
@@ -1100,7 +1294,7 @@
       background: linear-gradient(135deg, #dbeafe, #bfdbfe);
       color: #1e40af;
     }
-    
+
     /* === RESPONSIVE === */
     @media (max-width: 576px) {
       .display-title { font-size: 1.5rem; }
@@ -1112,32 +1306,20 @@
       .stat-box { padding: 0.75rem 0.25rem; }
       .nav-pills-custom .nav-link { font-size: 0.85rem; padding: 0.65rem 0; }
       
-      /* Admin responsive */
-      .admin-nav-cards { grid-template-columns: 1fr; gap: 0.75rem; }
+      .admin-nav-cards { grid-template-columns: repeat(2, 1fr); gap: 0.75rem; }
       .admin-nav-card { padding: 1.25rem 1rem; }
       .admin-nav-icon { font-size: 2rem; margin-bottom: 0.5rem; }
       .admin-nav-label { font-size: 0.95rem; }
-      .admin-nav-sublabel { font-size: 0.7rem; }
       .admin-title-section { flex-direction: column; text-align: center; }
       .admin-icon-badge { width: 60px; height: 60px; font-size: 1.75rem; }
-      .admin-main-title { font-size: 1.5rem; }
-      .admin-subtitle { font-size: 0.85rem; }
       .admin-stats-grid { grid-template-columns: 1fr; }
-      .admin-stat-value { font-size: 1.75rem; }
       .admin-row { padding: 1rem; }
-      .rank-badge { min-width: 28px; height: 28px; font-size: 0.8rem; }
     }
     
     /* === ANIMATIONS === */
     @keyframes slideInUp {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
     }
     
     .animate-in {
@@ -1165,6 +1347,35 @@
   <button class="btn btn-outline-light btn-lg mt-4 rounded-pill px-5 fw-bold" onclick="stopQrScanner()">
     <i class="bi bi-x-circle me-2"></i>ปิดกล้อง
   </button>
+</div>
+
+<!-- ===== CAMERA MODAL FOR REDEMPTION ===== -->
+<div id="cameraModal" class="camera-modal">
+  <div class="text-white mb-3 fw-bold fs-3 text-center">
+    <i class="bi bi-camera me-2"></i>ถ่ายรูปยืนยันการส่งมอบ
+  </div>
+  <div class="camera-container">
+    <video id="cameraPreview" autoplay playsinline muted></video>
+    <img id="capturedImage" alt="Captured">
+  </div>
+  <div class="camera-controls">
+    <button type="button" id="btnCapture" class="btn-camera btn-camera-capture" onclick="capturePhoto()">
+      <i class="bi bi-camera-fill"></i>
+      <span>ถ่ายรูป</span>
+    </button>
+    <button type="button" id="btnRetake" class="btn-camera btn-camera-retake" onclick="retakePhoto()" style="display:none;">
+      <i class="bi bi-arrow-clockwise"></i>
+      <span>ถ่ายใหม่</span>
+    </button>
+    <button type="button" id="btnConfirmPhoto" class="btn-camera btn-camera-confirm" onclick="confirmDelivery()" style="display:none;">
+      <i class="bi bi-check-circle-fill"></i>
+      <span>ยืนยันส่งมอบ</span>
+    </button>
+    <button type="button" class="btn-camera btn-camera-cancel" onclick="closeCameraModal()">
+      <i class="bi bi-x-circle"></i>
+      <span>ยกเลิก</span>
+    </button>
+  </div>
 </div>
 
 <!-- ===== LOGIN SCREEN ===== -->
@@ -1227,6 +1438,11 @@
           <div class="admin-nav-icon">🥚</div>
           <div class="admin-nav-label">สถิติไข่</div>
           <div class="admin-nav-sublabel">ผลผลิตรายวัน</div>
+        </div>
+        <div class="admin-nav-card" id="navCardRedemption" onclick="switchAdminView('redemption')">
+          <div class="admin-nav-icon">🎁</div>
+          <div class="admin-nav-label">จัดการรางวัล</div>
+          <div class="admin-nav-sublabel">ส่งมอบของแลก</div>
         </div>
         <div class="admin-nav-card" id="navCardDetail" onclick="switchAdminView('detail')">
           <div class="admin-nav-icon">🔍</div>
@@ -1300,6 +1516,36 @@
         </h6>
         <canvas id="adminEggChart" style="max-height: 280px;"></canvas>
       </div>
+    </div>
+    
+    <!-- Redemption Management View -->
+    <div id="viewAdminRedemption" style="display:none;">
+      <div class="card-custom p-3 mb-3">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h6 class="fw-bold m-0">
+            <i class="bi bi-funnel me-2"></i>กรองข้อมูล
+          </h6>
+          <button class="btn btn-sm btn-outline-primary rounded-pill" onclick="loadRedemptionList()">
+            <i class="bi bi-arrow-clockwise me-1"></i>รีเฟรช
+          </button>
+        </div>
+        <div class="row g-2">
+          <div class="col-12 col-md-6">
+            <select id="redemptionFilterStatus" class="form-select" onchange="filterRedemptionList()">
+              <option value="all">ทุกสถานะ</option>
+              <option value="pending" selected>รอส่งมอบ</option>
+              <option value="delivered">ส่งแล้ว</option>
+            </select>
+          </div>
+          <div class="col-12 col-md-6">
+            <select id="redemptionFilterFarm" class="form-select" onchange="filterRedemptionList()">
+              <option value="all">ทุกฟาร์ม</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div id="redemptionListContainer"></div>
     </div>
     
     <!-- Detail View -->
@@ -1649,12 +1895,12 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script>
-  // ========================================================
-  // ⚠️ นำ URL จาก Google Apps Script (Web App) ของคุณมาใส่ที่นี่
-  // ========================================================
-  const GAS_WEBAPP_URL = "https://script.google.com/macros/s/AKfycbxqIjIPJdnEhLjFO9IJ4kNQUkmCfYGpLEmvsCC1JKh3suCfnbcvBU7hh--D4LevvuVk/exec"; 
+  // =========================================================================
+  // ⚠️ 1. นำ URL ที่ได้จาก Google Apps Script (Web App) ของคุณมาใส่ตรงนี้
+  // =========================================================================
+  const GAS_WEBAPP_URL = "https://script.google.com/macros/s/AKfycbxcA12kxhe4hfhx5an6Uz8tXULTHH8TksW9DI6JRPiDL9z_mXAxQ-HIPPjEwgbid9I/exec"; 
 
-  // อ่านค่าจาก URL (แทนที่ของเดิมที่ใช้ <?= ?>)
+  // อ่านพารามิเตอร์ farm จาก URL (รองรับการทำลิงก์แจก)
   const urlParams = new URLSearchParams(window.location.search);
   var urlFarmParam = urlParams.get('farm') || ''; 
 
@@ -1665,21 +1911,31 @@
   let html5QrCode = null;
   let currentBalance = 0; 
   let shopItemsCache = [];
+  
+  // Camera and redemption variables
+  let cameraStream = null;
+  let capturedPhotoData = null;
+  let currentRedemptionId = null;
+  let allRedemptions = [];
+  let filteredRedemptions = [];
+  let isProcessing = false;
 
-  // ===== API Helper Function =====
-  // ฟังก์ชันกลางสำหรับยิงข้อมูลไปหา Google Apps Script ผ่าน Fetch API
+  // =========================================================================
+  // ⚠️ 2. ฟังก์ชัน Fetch API ทดแทน google.script.run
+  // =========================================================================
   async function callGasApi(action, data = {}) {
     try {
       const response = await fetch(GAS_WEBAPP_URL, {
-        method: "POST",
+        method: 'POST',
+        // ต้องส่งเป็น text/plain เพื่อเลี่ยงการติด CORS ของ Google
         body: JSON.stringify({ action: action, data: data }),
         headers: {
-          "Content-Type": "text/plain;charset=utf-8",
+          'Content-Type': 'text/plain;charset=utf-8'
         }
       });
       return await response.json();
     } catch (error) {
-      console.error("API Error:", error);
+      console.error("API Fetch Error:", error);
       throw error;
     }
   }
@@ -1694,7 +1950,7 @@
     yesterday.setDate(today.getDate() - 1);
     dateInput.min = yesterday.toISOString().split('T')[0];
     
-    // โหลดข้อมูลเริ่มต้น
+    // โหลดข้อมูลเริ่มต้นผ่าน API
     loadFarmConfig();
   };
 
@@ -1719,7 +1975,7 @@
         }, 500);
       })
       .catch(function(error) {
-        Swal.fire('Error', 'ไม่สามารถเชื่อมต่อฐานข้อมูลได้', 'error');
+        Swal.fire('ข้อผิดพลาด', 'ไม่สามารถเชื่อมต่อฐานข้อมูลได้', 'error');
       });
   }
 
@@ -1777,9 +2033,8 @@
     if (v === "ADMIN123") {
       document.getElementById('loginScreen').style.display = 'none';
       document.getElementById('adminDashboard').style.display = 'block';
-      
-      // ดึงข้อมูล Admin
       Swal.showLoading();
+      
       callGasApi('getAdminDashboardData')
         .then(d => {
           Swal.close();
@@ -1787,9 +2042,8 @@
           switchAdminView('chicken');
         })
         .catch(err => {
-          Swal.fire('Error', 'โหลดข้อมูล Admin ไม่สำเร็จ', 'error');
+          Swal.fire('ข้อผิดพลาด', 'โหลดข้อมูล Admin ไม่สำเร็จ', 'error');
         });
-
     } else if (checkFarmExists(v)) {
       performLogin(v);
     } else {
@@ -1821,10 +2075,9 @@
   function switchAdminView(m) {
     if (!adminDataCache) return;
     
-    // Update navigation cards
-    ['navCardChicken', 'navCardEgg', 'navCardDetail'].forEach(id => 
+    ['navCardChicken', 'navCardEgg', 'navCardRedemption', 'navCardDetail'].forEach(id => 
       document.getElementById(id).classList.remove('active'));
-    ['viewAdminChicken', 'viewAdminEgg', 'viewAdminDetail'].forEach(id => 
+    ['viewAdminChicken', 'viewAdminEgg', 'viewAdminRedemption', 'viewAdminDetail'].forEach(id => 
       document.getElementById(id).style.display = 'none');
     
     const stats = document.getElementById('adminStatsContainer');
@@ -1865,6 +2118,31 @@
         </div>
       `;
       loadEggReport();
+    } else if (m === 'redemption') {
+      document.getElementById('navCardRedemption').classList.add('active');
+      document.getElementById('viewAdminRedemption').style.display = 'block';
+      
+      stats.innerHTML = `
+        <div class="admin-stat-card stat-warning">
+          <div class="admin-stat-icon">⏳</div>
+          <div class="admin-stat-value" id="statPendingRedemptions">-</div>
+          <div class="admin-stat-label">รอส่งมอบ</div>
+        </div>
+        <div class="admin-stat-card stat-success">
+          <div class="admin-stat-icon">✅</div>
+          <div class="admin-stat-value" id="statDeliveredRedemptions">-</div>
+          <div class="admin-stat-label">ส่งแล้ว</div>
+        </div>
+      `;
+      
+      const farmFilter = document.getElementById('redemptionFilterFarm');
+      if (farmFilter && farmFilter.options.length <= 1) {
+        adminDataCache.farms.forEach(f => {
+          farmFilter.innerHTML += `<option value="${f.name}">${f.name}</option>`;
+        });
+      }
+      
+      loadRedemptionList();
     } else if (m === 'detail') {
       document.getElementById('navCardDetail').classList.add('active');
       document.getElementById('viewAdminDetail').style.display = 'block';
@@ -1936,76 +2214,40 @@
     const s = document.getElementById('eggStartDate').value || weekAgo.toISOString().split('T')[0];
     const e = document.getElementById('eggEndDate').value || today.toISOString().split('T')[0];
     
-    callGasApi('getEggReportByDateRange', { start: s, end: e }).then(function(d) {
-      document.getElementById('sumLarge').innerText = d.summary.large.toLocaleString('th-TH');
-      document.getElementById('sumSmall').innerText = d.summary.small.toLocaleString('th-TH');
-      document.getElementById('sumCrack').innerText = d.summary.crack.toLocaleString('th-TH');
-      document.getElementById('sumDefect').innerText = d.summary.defect.toLocaleString('th-TH');
-      
-      const ctx = document.getElementById('adminEggChart').getContext('2d');
-      if (adminChart) adminChart.destroy();
-      
-      adminChart = new Chart(ctx, {
-        type: 'bar',
-        data: {
-          labels: d.daily.map(x => x.date),
-          datasets: [
-            {
-              label: 'ไข่ใหญ่',
-              data: d.daily.map(x => x.large),
-              backgroundColor: 'rgba(16, 185, 129, 0.8)',
-              borderColor: 'rgb(16, 185, 129)',
-              borderWidth: 2
-            },
-            {
-              label: 'ไข่เล็ก',
-              data: d.daily.map(x => x.small),
-              backgroundColor: 'rgba(14, 165, 233, 0.8)',
-              borderColor: 'rgb(14, 165, 233)',
-              borderWidth: 2
-            },
-            {
-              label: 'เสีย',
-              data: d.daily.map(x => x.crack + x.defect),
-              backgroundColor: 'rgba(239, 68, 68, 0.8)',
-              borderColor: 'rgb(239, 68, 68)',
-              borderWidth: 2
-            }
-          ]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: true,
-          scales: {
-            x: {
-              stacked: true,
-              grid: { display: false }
-            },
-            y: {
-              stacked: true,
-              beginAtZero: true,
-              grid: { color: 'rgba(0, 0, 0, 0.05)' }
-            }
+    callGasApi('getEggReportByDateRange', { start: s, end: e })
+      .then(function(d) {
+        document.getElementById('sumLarge').innerText = d.summary.large.toLocaleString('th-TH');
+        document.getElementById('sumSmall').innerText = d.summary.small.toLocaleString('th-TH');
+        document.getElementById('sumCrack').innerText = d.summary.crack.toLocaleString('th-TH');
+        document.getElementById('sumDefect').innerText = d.summary.defect.toLocaleString('th-TH');
+        
+        const ctx = document.getElementById('adminEggChart').getContext('2d');
+        if (adminChart) adminChart.destroy();
+        
+        adminChart = new Chart(ctx, {
+          type: 'bar',
+          data: {
+            labels: d.daily.map(x => x.date),
+            datasets: [
+              { label: 'ไข่ใหญ่', data: d.daily.map(x => x.large), backgroundColor: 'rgba(16, 185, 129, 0.8)', borderColor: 'rgb(16, 185, 129)', borderWidth: 2 },
+              { label: 'ไข่เล็ก', data: d.daily.map(x => x.small), backgroundColor: 'rgba(14, 165, 233, 0.8)', borderColor: 'rgb(14, 165, 233)', borderWidth: 2 },
+              { label: 'เสีย', data: d.daily.map(x => x.crack + x.defect), backgroundColor: 'rgba(239, 68, 68, 0.8)', borderColor: 'rgb(239, 68, 68)', borderWidth: 2 }
+            ]
           },
-          plugins: {
-            legend: {
-              position: 'bottom',
-              labels: {
-                boxWidth: 12,
-                padding: 15,
-                font: { size: 11, family: 'Prompt' }
-              }
+          options: {
+            responsive: true,
+            maintainAspectRatio: true,
+            scales: {
+              x: { stacked: true, grid: { display: false } },
+              y: { stacked: true, beginAtZero: true, grid: { color: 'rgba(0, 0, 0, 0.05)' } }
             },
-            tooltip: {
-              backgroundColor: 'rgba(0, 0, 0, 0.8)',
-              padding: 12,
-              titleFont: { size: 13, family: 'Prompt' },
-              bodyFont: { size: 12, family: 'Prompt' }
+            plugins: {
+              legend: { position: 'bottom', labels: { boxWidth: 12, padding: 15, font: { size: 11, family: 'Prompt' } } },
+              tooltip: { backgroundColor: 'rgba(0, 0, 0, 0.8)', padding: 12, titleFont: { size: 13, family: 'Prompt' }, bodyFont: { size: 12, family: 'Prompt' } }
             }
           }
-        }
+        });
       });
-    });
   }
 
   function loadFarmDetail() {
@@ -2014,163 +2256,129 @@
     const e = document.getElementById('detailEndDate').value;
     
     if (!s || !e) {
-      Swal.fire({
-        icon: 'warning',
-        title: 'กรุณาเลือกวันที่',
-        text: 'โปรดระบุช่วงวันที่ที่ต้องการดูข้อมูล',
-        confirmButtonColor: 'var(--primary-green)'
-      });
+      Swal.fire({ icon: 'warning', title: 'กรุณาเลือกวันที่', confirmButtonColor: 'var(--primary-green)' });
       return;
     }
     
-    callGasApi('getFarmDetailReport', { farmName: n, start: s, end: e }).then(function(d) {
-      document.getElementById('detailContent').style.display = 'block';
-      
-      document.getElementById('detStats').innerHTML = `
-        <div class="col-4">
-          <div class="card-custom p-2 text-center">
-            <small class="text-muted fw-semibold">ไข่รวม</small>
-            <div class="fw-bold text-success fs-4 mt-1">${d.summary.totalEggs.toLocaleString('th-TH')}</div>
+    callGasApi('getFarmDetailReport', { farmName: n, start: s, end: e })
+      .then(function(d) {
+        document.getElementById('detailContent').style.display = 'block';
+        
+        document.getElementById('detStats').innerHTML = `
+          <div class="col-4">
+            <div class="card-custom p-2 text-center">
+              <small class="text-muted fw-semibold">ไข่รวม</small>
+              <div class="fw-bold text-success fs-4 mt-1">${d.summary.totalEggs.toLocaleString('th-TH')}</div>
+            </div>
           </div>
-        </div>
-        <div class="col-4">
-          <div class="card-custom p-2 text-center">
-            <small class="text-muted fw-semibold">อาหาร (kg)</small>
-            <div class="fw-bold fs-4 mt-1">${d.summary.totalFeed.toLocaleString('th-TH')}</div>
+          <div class="col-4">
+            <div class="card-custom p-2 text-center">
+              <small class="text-muted fw-semibold">อาหาร (kg)</small>
+              <div class="fw-bold fs-4 mt-1">${d.summary.totalFeed.toLocaleString('th-TH')}</div>
+            </div>
           </div>
-        </div>
-        <div class="col-4">
-          <div class="card-custom p-2 text-center">
-            <small class="text-muted fw-semibold">สูญเสีย</small>
-            <div class="fw-bold text-danger fs-4 mt-1">${d.summary.totalLoss.toLocaleString('th-TH')}</div>
+          <div class="col-4">
+            <div class="card-custom p-2 text-center">
+              <small class="text-muted fw-semibold">สูญเสีย</small>
+              <div class="fw-bold text-danger fs-4 mt-1">${d.summary.totalLoss.toLocaleString('th-TH')}</div>
+            </div>
           </div>
-        </div>
-      `;
-      
-      const tb = document.getElementById('admDetailTableBody');
-      tb.innerHTML = '';
-      d.daily.forEach(x => {
-        tb.innerHTML += `
-          <tr>
-            <td class="fw-semibold">${x.date}</td>
-            <td class="text-success fw-bold">${x.total.toLocaleString('th-TH')}</td>
-            <td>${x.feed.toLocaleString('th-TH')}</td>
-            <td class="text-danger fw-bold">${x.loss.toLocaleString('th-TH')}</td>
-          </tr>
         `;
+        
+        const tb = document.getElementById('admDetailTableBody');
+        tb.innerHTML = '';
+        d.daily.forEach(x => {
+          tb.innerHTML += `
+            <tr>
+              <td class="fw-semibold">${x.date}</td>
+              <td class="text-success fw-bold">${x.total.toLocaleString('th-TH')}</td>
+              <td>${x.feed.toLocaleString('th-TH')}</td>
+              <td class="text-danger fw-bold">${x.loss.toLocaleString('th-TH')}</td>
+            </tr>
+          `;
+        });
       });
-    });
   }
 
   // ===== REPORT FUNCTIONS =====
   function refreshReport() {
     const n = document.getElementById('farmSelectHidden').value;
     
-    callGasApi('getFarmReport', { farmName: n }).then(function(d) {
-      const rec = d.recordedDates || [];
-      const today = new Date();
-      const c = document.getElementById('calendarDays');
-      c.innerHTML = '';
-      
-      const dim = new Date(today.getFullYear(), today.getMonth() + 1, 0).getDate();
-      const fd = new Date(today.getFullYear(), today.getMonth(), 1).getDay();
-      
-      for (let i = 0; i < fd; i++) {
-        c.innerHTML += '<div class="calendar-day"></div>';
-      }
-      
-      for (let day = 1; day <= dim; day++) {
-        const ds = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
-        let cls = '';
+    callGasApi('getFarmReport', { farmName: n })
+      .then(function(d) {
+        const rec = d.recordedDates || [];
+        const today = new Date();
+        const c = document.getElementById('calendarDays');
+        c.innerHTML = '';
         
-        if (day === today.getDate()) {
-          cls = 'day-today';
-        } else if (rec.includes(ds)) {
-          cls = 'day-recorded';
-        } else if (day < today.getDate()) {
-          cls = 'day-missing';
+        const dim = new Date(today.getFullYear(), today.getMonth() + 1, 0).getDate();
+        const fd = new Date(today.getFullYear(), today.getMonth(), 1).getDay();
+        
+        for (let i = 0; i < fd; i++) {
+          c.innerHTML += '<div class="calendar-day"></div>';
         }
         
-        c.innerHTML += `<div class="calendar-day ${cls}">${day}</div>`;
-      }
-      
-      // Chart
-      const ctx = document.getElementById('eggChart').getContext('2d');
-      if (myChart) myChart.destroy();
-      
-      const graphLabels = d.logs.map(r => r.date).reverse();
-      const graphValues = d.logs.map(r => r.egg).reverse();
-      
-      myChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-          labels: graphLabels,
-          datasets: [{
-            label: 'ไข่รวม (ฟอง)',
-            data: graphValues,
-            borderColor: 'rgb(14, 165, 233)',
-            backgroundColor: 'rgba(14, 165, 233, 0.1)',
-            fill: true,
-            tension: 0.4,
-            pointBackgroundColor: 'rgb(14, 165, 233)',
-            pointBorderColor: '#fff',
-            pointBorderWidth: 2,
-            pointRadius: 4,
-            pointHoverRadius: 6
-          }]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: {
-            legend: { display: false },
-            tooltip: {
-              backgroundColor: 'rgba(0, 0, 0, 0.8)',
-              padding: 12,
-              titleFont: { size: 13, family: 'Prompt' },
-              bodyFont: { size: 12, family: 'Prompt' },
-              callbacks: {
-                label: function(context) {
-                  return 'ไข่: ' + context.parsed.y.toLocaleString('th-TH') + ' ฟอง';
-                }
-              }
-            }
+        for (let day = 1; day <= dim; day++) {
+          const ds = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+          let cls = '';
+          
+          if (day === today.getDate()) {
+            cls = 'day-today';
+          } else if (rec.includes(ds)) {
+            cls = 'day-recorded';
+          } else if (day < today.getDate()) {
+            cls = 'day-missing';
+          }
+          
+          c.innerHTML += `<div class="calendar-day ${cls}">${day}</div>`;
+        }
+        
+        const ctx = document.getElementById('eggChart').getContext('2d');
+        if (myChart) myChart.destroy();
+        
+        const graphLabels = d.logs.map(r => r.date).reverse();
+        const graphValues = d.logs.map(r => r.egg).reverse();
+        
+        myChart = new Chart(ctx, {
+          type: 'line',
+          data: {
+            labels: graphLabels,
+            datasets: [{
+              label: 'ไข่รวม (ฟอง)', data: graphValues, borderColor: 'rgb(14, 165, 233)', backgroundColor: 'rgba(14, 165, 233, 0.1)',
+              fill: true, tension: 0.4, pointBackgroundColor: 'rgb(14, 165, 233)', pointBorderColor: '#fff', pointBorderWidth: 2, pointRadius: 4, pointHoverRadius: 6
+            }]
           },
-          scales: {
-            y: {
-              beginAtZero: true,
-              grid: { color: 'rgba(0, 0, 0, 0.05)' },
-              ticks: {
-                font: { family: 'Prompt' },
-                callback: function(value) {
-                  return value.toLocaleString('th-TH');
-                }
+          options: {
+            responsive: true, maintainAspectRatio: false,
+            plugins: {
+              legend: { display: false },
+              tooltip: {
+                backgroundColor: 'rgba(0, 0, 0, 0.8)', padding: 12, titleFont: { size: 13, family: 'Prompt' }, bodyFont: { size: 12, family: 'Prompt' },
+                callbacks: { label: function(context) { return 'ไข่: ' + context.parsed.y.toLocaleString('th-TH') + ' ฟอง'; } }
               }
             },
-            x: {
-              grid: { display: false },
-              ticks: { font: { family: 'Prompt' } }
+            scales: {
+              y: { beginAtZero: true, grid: { color: 'rgba(0, 0, 0, 0.05)' }, ticks: { font: { family: 'Prompt' }, callback: function(value) { return value.toLocaleString('th-TH'); } } },
+              x: { grid: { display: false }, ticks: { font: { family: 'Prompt' } } }
             }
           }
-        }
+        });
+        
+        const tb = document.getElementById('historyTableBody');
+        tb.innerHTML = '';
+        d.logs.forEach((r, idx) => {
+          setTimeout(() => {
+            tb.innerHTML += `
+              <tr style="animation: slideInUp 0.2s ease-out ${idx * 0.03}s both;">
+                <td class="fw-semibold">${r.date}</td>
+                <td class="fw-bold text-success">${r.egg.toLocaleString('th-TH')}</td>
+                <td>${r.feed.toLocaleString('th-TH')}</td>
+                <td class="text-danger fw-bold">${r.loss.toLocaleString('th-TH')}</td>
+              </tr>
+            `;
+          }, idx * 30);
+        });
       });
-      
-      // Table
-      const tb = document.getElementById('historyTableBody');
-      tb.innerHTML = '';
-      d.logs.forEach((r, idx) => {
-        setTimeout(() => {
-          tb.innerHTML += `
-            <tr style="animation: slideInUp 0.2s ease-out ${idx * 0.03}s both;">
-              <td class="fw-semibold">${r.date}</td>
-              <td class="fw-bold text-success">${r.egg.toLocaleString('th-TH')}</td>
-              <td>${r.feed.toLocaleString('th-TH')}</td>
-              <td class="text-danger fw-bold">${r.loss.toLocaleString('th-TH')}</td>
-            </tr>
-          `;
-        }, idx * 30);
-      });
-    });
   }
 
   // ===== FORM SUBMISSION =====
@@ -2180,7 +2388,7 @@
     b.disabled = true;
     b.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>กำลังบันทึก...';
     
-    // แปลงข้อมูลใน Form เป็น Object แบบชัวร์ๆ (รองรับ Checkbox ด้วย)
+    // ดึงข้อมูลจากฟอร์ม
     const formData = Object.fromEntries(new FormData(e.target));
     formData.hasSick = document.getElementById('checkSick').checked;
     formData.hasDead = document.getElementById('checkDead').checked;
@@ -2191,20 +2399,14 @@
         b.disabled = false;
         b.innerHTML = '<i class="bi bi-check-circle me-2"></i>บันทึกข้อมูลวันนี้';
         
-        if(r.status === 'success') {
+        if (r.status === 'success') {
           Swal.fire({
-            title: 'สำเร็จ!',
-            text: r.message,
-            icon: 'success',
-            confirmButtonColor: 'var(--primary-green)',
-            confirmButtonText: 'ตกลง'
+            title: 'สำเร็จ!', text: r.message, icon: 'success', confirmButtonColor: 'var(--primary-green)', confirmButtonText: 'ตกลง'
           }).then(() => {
             e.target.reset();
-            // ซ่อน section ที่เปิดอยู่
             ['sickSection', 'deadSection', 'cullSection'].forEach(id => {
               document.getElementById(id).style.display = 'none';
             });
-            // โหลดข้อมูลใหม่เพื่ออัปเดตสถิติ
             loadFarmConfig();
           });
         } else {
@@ -2214,13 +2416,7 @@
       .catch(function(error) {
         b.disabled = false;
         b.innerHTML = '<i class="bi bi-check-circle me-2"></i>บันทึกข้อมูลวันนี้';
-        
-        Swal.fire({
-          title: 'เกิดข้อผิดพลาด',
-          text: error.message || 'ไม่สามารถบันทึกข้อมูลได้',
-          icon: 'error',
-          confirmButtonColor: 'var(--danger)'
-        });
+        Swal.fire({ title: 'เกิดข้อผิดพลาด', text: error.message || 'ไม่สามารถบันทึกข้อมูลได้', icon: 'error', confirmButtonColor: 'var(--danger)' });
       });
   }
 
@@ -2230,8 +2426,7 @@
       Swal.fire({
         title: 'ไข่ทองคำไม่พอ',
         html: `<p>คุณมีไข่ทองคำ <strong>${currentBalance}</strong> ใบ</p><p>ต้องการอีก <strong class="text-danger">${c - currentBalance}</strong> ใบ</p>`,
-        icon: 'warning',
-        confirmButtonColor: 'var(--primary-green)'
+        icon: 'warning', confirmButtonColor: 'var(--primary-green)'
       });
       return;
     }
@@ -2239,27 +2434,21 @@
     Swal.fire({
       title: 'ยืนยันการแลก?',
       html: `<p>แลก <strong>${n}</strong></p><p>ใช้ไข่ทองคำ <strong class="text-warning">${c}</strong> ใบ</p>`,
-      icon: 'question',
-      showCancelButton: true,
-      confirmButtonColor: 'var(--primary-green)',
-      cancelButtonColor: 'var(--text-muted)',
-      confirmButtonText: 'แลกเลย',
-      cancelButtonText: 'ยกเลิก'
+      icon: 'question', showCancelButton: true, confirmButtonColor: 'var(--primary-green)', cancelButtonColor: 'var(--text-muted)', confirmButtonText: 'แลกเลย', cancelButtonText: 'ยกเลิก'
     }).then(res => {
       if (res.isConfirmed) {
         Swal.showLoading();
-        callGasApi('redeemReward', { 
-            farmName: document.getElementById('farmSelectHidden').value, 
-            item: n, 
-            cost: c 
-        }).then(r => {
-            Swal.fire({
-              title: 'สำเร็จ!',
-              text: r.message,
-              icon: 'success',
-              confirmButtonColor: 'var(--primary-green)'
-            });
-            loadFarmConfig(); // โหลดแต้มใหม่
+        callGasApi('redeemReward', {
+          farmName: document.getElementById('farmSelectHidden').value,
+          item: n,
+          cost: c
+        })
+        .then(r => {
+          Swal.fire({ title: 'สำเร็จ!', text: r.message, icon: 'success', confirmButtonColor: 'var(--primary-green)' });
+          loadFarmConfig();
+        })
+        .catch(err => {
+          Swal.fire({ title: 'ข้อผิดพลาด', text: err.message, icon: 'error', confirmButtonColor: 'var(--danger)' });
         });
       }
     });
@@ -2284,59 +2473,323 @@
           let name = txt;
           
           if (txt.includes('farm=')) {
-            try {
-              name = new URL(txt).searchParams.get('farm');
-            } catch (e) {
-              name = txt;
-            }
+            try { name = new URL(txt).searchParams.get('farm'); } catch (e) { name = txt; }
           }
           
           if (checkFarmExists(name)) {
             performLogin(name);
           } else {
-            Swal.fire({
-              title: 'ไม่พบฟาร์ม',
-              text: `ไม่พบ "${name}" ในระบบ`,
-              icon: 'error',
-              confirmButtonColor: 'var(--danger)'
-            });
+            Swal.fire({ title: 'ไม่พบฟาร์ม', text: `ไม่พบ "${name}" ในระบบ`, icon: 'error', confirmButtonColor: 'var(--danger)' });
           }
         });
       }
     ).catch(err => {
       console.error('QR Scanner error:', err);
       document.getElementById('qrOverlay').style.display = 'none';
-      Swal.fire({
-        title: 'ไม่สามารถเปิดกล้องได้',
-        text: 'กรุณาอนุญาตให้เข้าถึงกล้องในการตั้งค่าเบราว์เซอร์',
-        icon: 'error',
-        confirmButtonColor: 'var(--danger)'
-      });
+      Swal.fire({ title: 'ไม่สามารถเปิดกล้องได้', text: 'กรุณาอนุญาตให้เข้าถึงกล้องในการตั้งค่าเบราว์เซอร์ หรือเปลี่ยนไปเปิดใน Chrome/Safari แทน', icon: 'error', confirmButtonColor: 'var(--danger)' });
     });
   }
 
   function stopQrScanner() {
     if (html5QrCode) {
-      html5QrCode.stop().then(() => {
-        document.getElementById('qrOverlay').style.display = 'none';
-      });
+      html5QrCode.stop().then(() => { document.getElementById('qrOverlay').style.display = 'none'; });
     } else {
       document.getElementById('qrOverlay').style.display = 'none';
     }
   }
 
   // ===== UTILITY FUNCTIONS =====
-  function toggleSection(id, s) {
-    document.getElementById(id).style.display = s ? 'block' : 'none';
+  function toggleSection(id, s) { document.getElementById(id).style.display = s ? 'block' : 'none'; }
+  function checkOther(el, id) { document.getElementById(id).style.display = el.value === 'other' ? 'block' : 'none'; }
+  
+  // ===== REDEMPTION MANAGEMENT =====
+  function loadRedemptionList() {
+    const container = document.getElementById('redemptionListContainer');
+    if (container) {
+      container.innerHTML = `
+        <div class="empty-state">
+          <div class="empty-state-icon">
+            <div class="spinner-border text-primary" role="status"></div>
+          </div>
+          <div class="empty-state-text">กำลังโหลดข้อมูล...</div>
+        </div>
+      `;
+    }
+    
+    callGasApi('getRedemptionList')
+      .then(function(data) {
+        allRedemptions = data || [];
+        filterRedemptionList();
+      })
+      .catch(function(error) {
+        if (container) {
+          container.innerHTML = `
+            <div class="empty-state">
+              <div class="empty-state-icon">⚠️</div>
+              <div class="empty-state-text">ไม่สามารถโหลดข้อมูลได้</div>
+              <p class="text-danger small mt-2">${error.message || 'กรุณาลองใหม่อีกครั้ง'}</p>
+              <button class="btn btn-outline-primary btn-sm mt-3" onclick="loadRedemptionList()"><i class="bi bi-arrow-clockwise me-1"></i>โหลดใหม่</button>
+            </div>
+          `;
+        }
+      });
+  }
+  
+  function filterRedemptionList() {
+    const statusFilter = document.getElementById('redemptionFilterStatus').value;
+    const farmFilter = document.getElementById('redemptionFilterFarm').value;
+    
+    filteredRedemptions = allRedemptions.filter(r => {
+      const matchStatus = statusFilter === 'all' || r.status === statusFilter;
+      const matchFarm = farmFilter === 'all' || r.farmName === farmFilter;
+      return matchStatus && matchFarm;
+    });
+    
+    renderRedemptionList();
+    updateRedemptionStats();
+  }
+  
+  function updateRedemptionStats() {
+    const pending = allRedemptions.filter(r => r.status === 'pending').length;
+    const delivered = allRedemptions.filter(r => r.status === 'delivered').length;
+    
+    const pendingEl = document.getElementById('statPendingRedemptions');
+    const deliveredEl = document.getElementById('statDeliveredRedemptions');
+    
+    if (pendingEl) pendingEl.innerText = pending.toLocaleString('th-TH');
+    if (deliveredEl) deliveredEl.innerText = delivered.toLocaleString('th-TH');
+  }
+  
+  function renderRedemptionList() {
+    const container = document.getElementById('redemptionListContainer');
+    if (!container) return;
+    
+    if (!filteredRedemptions || filteredRedemptions.length === 0) {
+      container.innerHTML = `
+        <div class="empty-state">
+          <div class="empty-state-icon">📦</div>
+          <div class="empty-state-text">ไม่มีรายการแลกรางวัล</div>
+        </div>
+      `;
+      return;
+    }
+    
+    container.innerHTML = '';
+    filteredRedemptions.forEach((redemption, idx) => {
+      const statusClass = redemption.status === 'delivered' ? 'delivered' : '';
+      const statusBadgeClass = redemption.status === 'delivered' ? 'status-delivered' : 'status-pending';
+      const statusText = redemption.status === 'delivered' ? '✅ ส่งแล้ว' : '⏳ รอส่งมอบ';
+      
+      setTimeout(() => {
+        const card = document.createElement('div');
+        card.className = `redemption-card ${statusClass}`;
+        card.style.animation = `slideInUp 0.3s ease-out ${idx * 0.05}s both`;
+        
+        card.innerHTML = `
+          <div class="redemption-header">
+            <div>
+              <div class="redemption-farm"><i class="bi bi-house-fill"></i> <span>${redemption.farmName}</span></div>
+              <div class="redemption-date"><i class="bi bi-clock"></i> ${redemption.dateStr}</div>
+            </div>
+            <span class="redemption-status-badge ${statusBadgeClass}">${statusText}</span>
+          </div>
+          <div class="redemption-item">
+            <span class="redemption-item-icon">${redemption.icon}</span>
+            <div class="redemption-item-details">
+              <div class="redemption-item-name">${redemption.item}</div>
+              <div class="redemption-item-cost"><i class="bi bi-egg-fill" style="color: #eab308;"></i> <span>ใช้ ${redemption.cost.toLocaleString('th-TH')} ใบ</span></div>
+            </div>
+          </div>
+          ${redemption.status === 'pending' ? `
+            <div class="redemption-actions">
+              <button class="btn btn-success rounded-pill px-4" onclick="openCameraForDelivery('${redemption.id}')">
+                <i class="bi bi-camera me-2"></i>ถ่ายรูปส่งมอบ
+              </button>
+            </div>
+          ` : `
+            <div class="mt-2">
+              <small class="text-success"><i class="bi bi-check-circle-fill me-1"></i> ส่งมอบเมื่อ: ${redemption.deliveredDate || '-'}</small>
+            </div>
+          `}
+        `;
+        container.appendChild(card);
+      }, idx * 50);
+    });
   }
 
-  function checkOther(el, id) {
-    document.getElementById(id).style.display = el.value === 'other' ? 'block' : 'none';
+  // ===== CAMERA FUNCTIONS =====
+  async function initCamera(videoEl) {
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+      throw new Error("เบราว์เซอร์ของคุณไม่อนุญาตให้ใช้กล้อง (อาจต้องเปิดผ่าน HTTPS หรือไม่ได้ใช้ Chrome/Safari)");
+    }
+    
+    videoEl.setAttribute('autoplay', '');
+    videoEl.setAttribute('muted', '');
+    videoEl.setAttribute('playsinline', '');
+    
+    let stream = null;
+    const constraintsList = [
+      { video: { facingMode: { exact: "environment" } } },
+      { video: { facingMode: "environment" } },            
+      { video: true }                                      
+    ];
+
+    for (let i = 0; i < constraintsList.length; i++) {
+      try {
+        stream = await navigator.mediaDevices.getUserMedia(constraintsList[i]);
+        if (stream) break;
+      } catch (err) {
+        console.warn(`Camera fallback ${i+1} failed:`, err);
+      }
+    }
+    
+    if (stream) {
+      cameraStream = stream;
+      videoEl.srcObject = stream;
+      try {
+        await videoEl.play();
+      } catch (e) {
+        console.warn("Video play error:", e);
+      }
+    } else {
+      throw new Error("ไม่สามารถเชื่อมต่อฮาร์ดแวร์กล้องได้ กรุณาตรวจสอบสิทธิ์การเข้าถึงกล้องในเบราว์เซอร์");
+    }
+  }
+
+  function openCameraForDelivery(redemptionId) {
+    currentRedemptionId = redemptionId;
+    capturedPhotoData = null;
+    isProcessing = false; 
+    
+    const modal = document.getElementById('cameraModal');
+    const video = document.getElementById('cameraPreview');
+    const img = document.getElementById('capturedImage');
+    
+    modal.style.display = 'flex';
+    video.style.display = 'block';
+    img.style.display = 'none';
+    
+    document.getElementById('btnCapture').style.display = 'flex';
+    document.getElementById('btnRetake').style.display = 'none';
+    const btnConfirm = document.getElementById('btnConfirmPhoto');
+    btnConfirm.style.display = 'none'; 
+    
+    btnConfirm.disabled = false;
+    btnConfirm.innerHTML = '<i class="bi bi-check-circle-fill"></i> <span>ยืนยันส่งมอบ</span>';
+    
+    initCamera(video).catch(err => {
+      console.error('Camera initialization error:', err);
+      Swal.fire({ 
+        icon: 'error', 
+        title: 'ไม่สามารถเปิดกล้องได้', 
+        text: err.message || 'กรุณาอนุญาตให้เข้าถึงกล้องในการตั้งค่า หรือเปิดเว็บผ่านแอป Browser โดยตรง (ห้ามเปิดจากในไลน์)', 
+        confirmButtonColor: 'var(--danger)' 
+      });
+      closeCameraModal();
+    });
+  }
+  
+  function capturePhoto() {
+    const video = document.getElementById('cameraPreview');
+    const img = document.getElementById('capturedImage');
+    const canvas = document.createElement('canvas');
+    
+    const scale = 800 / video.videoWidth;
+    canvas.width = 800;
+    canvas.height = video.videoHeight * scale;
+    
+    const ctx = canvas.getContext('2d');
+    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+    
+    capturedPhotoData = canvas.toDataURL('image/jpeg', 0.6);
+    
+    img.src = capturedPhotoData;
+    img.style.display = 'block';
+    video.style.display = 'none';
+    
+    document.getElementById('btnCapture').style.display = 'none';
+    document.getElementById('btnRetake').style.display = 'flex';
+    document.getElementById('btnConfirmPhoto').style.display = 'flex'; 
+    
+    if (cameraStream) {
+      cameraStream.getTracks().forEach(track => track.stop());
+      cameraStream = null;
+    }
+  }
+  
+  function retakePhoto() {
+    const video = document.getElementById('cameraPreview');
+    const img = document.getElementById('capturedImage');
+    
+    capturedPhotoData = null;
+    video.style.display = 'block';
+    img.style.display = 'none';
+    
+    document.getElementById('btnCapture').style.display = 'flex';
+    document.getElementById('btnRetake').style.display = 'none';
+    document.getElementById('btnConfirmPhoto').style.display = 'none'; 
+    
+    initCamera(video).catch(err => {
+      closeCameraModal();
+    });
+  }
+  
+  function confirmDelivery() {
+    if (isProcessing) return;
+
+    if (!capturedPhotoData) { Swal.fire('ข้อผิดพลาด', 'กรุณาถ่ายรูปก่อนยืนยัน', 'warning'); return; }
+    if (!currentRedemptionId) { Swal.fire('ข้อผิดพลาด', 'ไม่พบข้อมูลรายการ (ID Missing)', 'error'); closeCameraModal(); return; }
+
+    isProcessing = true;
+    const btn = document.getElementById('btnConfirmPhoto');
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span> กำลังบันทึก...';
+
+    callGasApi('markRedemptionDelivered', { 
+        redemptionId: currentRedemptionId, 
+        photoBase64: capturedPhotoData 
+    })
+    .then(function(response) {
+      if (response.status === 'success') {
+        btn.style.display = 'none';
+        
+        Swal.fire({ 
+          icon: 'success', 
+          title: 'สำเร็จ!', 
+          text: 'บันทึกการส่งมอบเรียบร้อย', 
+          confirmButtonColor: 'var(--primary-green)',
+          allowOutsideClick: false
+        })
+        .then(() => { 
+          closeCameraModal(); 
+          loadRedemptionList(); 
+        });
+      } else {
+        isProcessing = false; 
+        btn.disabled = false;
+        btn.innerHTML = '<i class="bi bi-check-circle-fill"></i> <span>ยืนยันส่งมอบ</span>';
+        Swal.fire({ icon: 'error', title: 'เกิดข้อผิดพลาด', text: response.message || 'ไม่สามารถบันทึกได้', confirmButtonColor: 'var(--danger)' });
+      }
+    })
+    .catch(function(error) {
+      isProcessing = false;
+      btn.disabled = false;
+      btn.innerHTML = '<i class="bi bi-check-circle-fill"></i> <span>ยืนยันส่งมอบ</span>';
+      Swal.fire({ icon: 'error', title: 'การเชื่อมต่อล้มเหลว', text: error.message, confirmButtonColor: 'var(--danger)' });
+    });
+  }
+  
+  function closeCameraModal() {
+    if (cameraStream) {
+      cameraStream.getTracks().forEach(track => track.stop());
+      cameraStream = null;
+    }
+    document.getElementById('cameraModal').style.display = 'none';
+    capturedPhotoData = null;
+    currentRedemptionId = null;
+    isProcessing = false;
   }
 </script>
 
-</body>
-</html>
-    </script>
 </body>
 </html>
