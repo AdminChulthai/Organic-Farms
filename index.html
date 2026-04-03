@@ -1503,7 +1503,8 @@
       }
 
       .admin-stats-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.75rem;
       }
 
       .admin-row {
@@ -1680,31 +1681,38 @@
           <label class="form-label fw-semibold small text-muted mb-2">
             <i class="bi bi-calendar-range me-1"></i>เลือกช่วงวันที่
           </label>
-          <div class="input-group">
-            <input type="date" id="eggStartDate" class="form-control text-center">
-            <input type="date" id="eggEndDate" class="form-control text-center">
-            <button class="btn btn-primary" onclick="loadEggReport()">
-              <i class="bi bi-search"></i>
-            </button>
+          <div class="row g-2 align-items-center">
+            <div class="col-5">
+              <input type="date" id="eggStartDate" class="form-control form-control-sm text-center px-1" style="font-size: 0.75rem;">
+            </div>
+            <div class="col-5">
+              <input type="date" id="eggEndDate" class="form-control form-control-sm text-center px-1" style="font-size: 0.75rem;">
+            </div>
+            <div class="col-2">
+              <button class="btn btn-primary btn-sm w-100 py-1" onclick="loadEggReport()">
+                <i class="bi bi-search"></i>
+              </button>
+            </div>
           </div>
         </div>
 
+        <div class="row g-2 mb-3">
           <div class="col-4">
-            <div class="card-custom p-3 text-center border-success" style="border-left: 4px solid var(--success);">
-              <small class="text-muted fw-semibold">ไข่ใหญ่</small>
-              <div id="sumLarge" class="fw-bold text-success fs-4 mt-1">-</div>
+            <div class="card-custom p-2 text-center" style="border-top: 4px solid var(--success);">
+              <small class="text-muted fw-semibold d-block text-truncate" style="font-size: 0.7rem;">ไข่ใหญ่</small>
+              <div id="sumLarge" class="fw-bold text-success mt-1" style="font-size: 1.1rem;">-</div>
             </div>
           </div>
           <div class="col-4">
-            <div class="card-custom p-3 text-center border-primary" style="border-left: 4px solid var(--accent-blue);">
-              <small class="text-muted fw-semibold">ไข่เล็ก</small>
-              <div id="sumSmall" class="fw-bold text-primary fs-4 mt-1">-</div>
+            <div class="card-custom p-2 text-center" style="border-top: 4px solid var(--accent-blue);">
+              <small class="text-muted fw-semibold d-block text-truncate" style="font-size: 0.7rem;">ไข่เล็ก</small>
+              <div id="sumSmall" class="fw-bold text-primary mt-1" style="font-size: 1.1rem;">-</div>
             </div>
           </div>
           <div class="col-4">
-            <div class="card-custom p-3 text-center border-danger" style="border-left: 4px solid var(--danger);">
-              <small class="text-muted fw-semibold">ตกเกรด/ร้าว</small>
-              <div id="sumDefect" class="fw-bold text-danger fs-4 mt-1">-</div>
+            <div class="card-custom p-2 text-center" style="border-top: 4px solid var(--danger);">
+              <small class="text-muted fw-semibold d-block text-truncate" style="font-size: 0.7rem;">ตกเกรด/ร้าว</small>
+              <div id="sumDefect" class="fw-bold text-danger mt-1" style="font-size: 1.1rem;">-</div>
             </div>
           </div>
         </div>
