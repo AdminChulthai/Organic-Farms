@@ -1651,6 +1651,11 @@
             <div class="admin-nav-label">จัดการรางวัล</div>
             <div class="admin-nav-sublabel">ส่งมอบของแลก</div>
           </div>
+          <div class="admin-nav-card" id="navCardSubmission" onclick="switchAdminView('submission')">
+            <div class="admin-nav-icon">📋</div>
+            <div class="admin-nav-label">สถานะการส่ง</div>
+            <div class="admin-nav-sublabel">ตรวจสอบการกรอก</div>
+          </div>
           <div class="admin-nav-card" id="navCardDetail" onclick="switchAdminView('detail')">
             <div class="admin-nav-icon">🔍</div>
             <div class="admin-nav-label">รายเล้า</div>
@@ -1722,6 +1727,39 @@
             <i class="bi bi-bar-chart me-2"></i>กราฟผลผลิตรายวัน
           </h6>
           <canvas id="adminEggChart" style="max-height: 280px;"></canvas>
+        </div>
+      </div>
+
+      <!-- Submission Status View -->
+      <div id="viewAdminSubmission" style="display:none;">
+        <div class="card-custom p-3 mb-4 shadow-sm border-0" style="background: #ffffff;">
+          <div class="d-flex align-items-center mb-3">
+            <div class="bg-warning bg-opacity-10 p-2 rounded-3 me-2">
+              <i class="bi bi-clipboard-check text-warning"></i>
+            </div>
+            <h6 class="mb-0 fw-bold text-dark" style="font-size: 0.95rem;">ตรวจสอบสถานะประจำวัน</h6>
+          </div>
+          <div class="row g-2 align-items-end">
+            <div class="col">
+              <label class="small fw-bold text-muted mb-1 d-block" style="font-size: 0.65rem;">เลือกวันที่ตรวจ</label>
+              <input type="date" id="subStatusDate" class="form-control form-control-sm border-0 bg-light fw-bold" 
+                onchange="loadSubmissionStatus()" style="border-radius: 10px;">
+            </div>
+            <div class="col-auto">
+              <button class="btn btn-warning btn-sm shadow-sm border-0 text-white fw-bold" onclick="loadSubmissionStatus()" 
+                style="height: 34px; border-radius: 10px; padding-left: 15px; padding-right: 15px;">
+                <i class="bi bi-arrow-clockwise me-1"></i>รีเฟรช
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div id="listAdminSubmission" class="mb-4">
+          <!-- Content dynamicly loaded here -->
+          <div class="text-center py-5 text-muted">
+            <div class="spinner-border spinner-border-sm mb-2"></div>
+            <div>กำลังตรวจสอบข้อมูล...</div>
+          </div>
         </div>
       </div>
 
@@ -2385,9 +2423,9 @@
     function switchAdminView(m) {
       if (!adminDataCache) return;
 
-      ['navCardChicken', 'navCardEgg', 'navCardRedemption', 'navCardDetail'].forEach(id =>
+      ['navCardChicken', 'navCardEgg', 'navCardRedemption', 'navCardSubmission', 'navCardDetail'].forEach(id =>
         document.getElementById(id).classList.remove('active'));
-      ['viewAdminChicken', 'viewAdminEgg', 'viewAdminRedemption', 'viewAdminDetail'].forEach(id =>
+      ['viewAdminChicken', 'viewAdminEgg', 'viewAdminRedemption', 'viewAdminSubmission', 'viewAdminDetail'].forEach(id =>
         document.getElementById(id).style.display = 'none');
 
       const stats = document.getElementById('adminStatsContainer');
@@ -2453,6 +2491,21 @@
         }
 
         loadRedemptionList();
+      } else if (m === 'submission') {
+        document.getElementById('navCardSubmission').classList.add('active');
+        document.getElementById('viewAdminSubmission').style.display = 'block';
+
+        const subDate = document.getElementById('subStatusDate');
+        if (!subDate.value) subDate.value = new Date().toISOString().split('T')[0];
+
+        stats.innerHTML = `
+        <div class="admin-stat-card stat-warning" style="grid-column: 1 / -1;">
+          <div class="admin-stat-icon">📋</div>
+          <div class="admin-stat-value" id="statSubmissionOverview">- / -</div>
+          <div class="admin-stat-label">ส่งข้อมูลแล้ว / ทั้งหมด</div>
+        </div>
+      `;
+        loadSubmissionStatus();
       } else if (m === 'detail') {
         document.getElementById('navCardDetail').classList.add('active');
         document.getElementById('viewAdminDetail').style.display = 'block';
@@ -3097,6 +3150,63 @@
       capturedPhotoData = null;
       currentRedemptionId = null;
       isProcessing = false;
+    }
+
+    function loadSubmissionStatus() {
+      const dateStr = document.getElementById('subStatusDate').value;
+      if (!dateStr) return;
+
+      const list = document.getElementById('listAdminSubmission');
+      list.innerHTML = `
+      <div class="text-center py-5 text-muted animate-in">
+        <div class="spinner-border spinner-border-sm mb-2 text-warning"></div>
+        <div>กำลังตรวจสอบสถานะการส่ง...</div>
+      </div>
+    `;
+
+      callGasApi('getSubmissionStatus', { dateStr: dateStr })
+        .then(function (res) {
+          if (res.status === 'success') {
+            renderSubmissionStatus(res.data);
+          } else {
+            list.innerHTML = `<div class="alert alert-danger mx-3">${res.message}</div>`;
+          }
+        })
+        .catch(function (err) {
+          list.innerHTML = `<div class="alert alert-danger mx-3">เกิดข้อผิดพลาด: ${err}</div>`;
+        });
+    }
+
+    function renderSubmissionStatus(data) {
+      const list = document.getElementById('listAdminSubmission');
+      const overview = document.getElementById('statSubmissionOverview');
+
+      const submittedCount = data.filter(f => f.status === 'submitted').length;
+      overview.innerText = `${submittedCount} / ${data.length}`;
+
+      list.innerHTML = '';
+      data.forEach((f, idx) => {
+        const isSub = f.status === 'submitted';
+        const cardStyle = isSub ? 'border-left: 4px solid #10b981; background: #f0fdf4;' : 'border-left: 4px solid #ef4444; background: #fef2f2;';
+        const badgeClass = isSub ? 'bg-success' : 'bg-danger';
+
+        list.innerHTML += `
+        <div class="card-custom p-3 mb-2 animate-in shadow-sm border-0" style="${cardStyle} animation-delay: ${idx * 0.05}s;">
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="d-flex align-items-center gap-3">
+              <div style="font-size: 1.5rem;">${isSub ? '✅' : '⏳'}</div>
+              <div>
+                <div class="fw-bold text-dark">${f.name}</div>
+                <small class="text-muted">${isSub ? 'ส่งเมื่อ ' + f.time + ' น.' : 'ยังไม่ส่งข้อมูล'}</small>
+              </div>
+            </div>
+            <span class="badge rounded-pill px-3 py-2 ${badgeClass}">
+              ${isSub ? 'เรียบร้อย' : 'รอดำเนินการ'}
+            </span>
+          </div>
+        </div>
+      `;
+      });
     }
   </script>
 
