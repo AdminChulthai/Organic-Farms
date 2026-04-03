@@ -2201,8 +2201,17 @@
       const form = document.getElementById('farmForm');
       const btn = document.getElementById('btnSubmit');
 
+      // เริ่มการโหลด: ปิดการใช้งานฟอร์มชั่วคราว
+      btn.disabled = true;
+      btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>กำลังตรวจเช็คข้อมูล...';
+      const inputs = form.querySelectorAll('input, select, button');
+      inputs.forEach(el => { if(el.id !== 'recordDate') el.disabled = true; });
+
       callGasApi('getRecordByDate', { farmName: farmName, dateStr: dateStr })
         .then(function (res) {
+          // สิ้นสุดการโหลด: เปิดการใช้งานฟอร์ม
+          btn.disabled = false;
+          inputs.forEach(el => el.disabled = false);
           if (res.status === 'success') {
             const d = res.data;
             form.eggLarge.value = d.eggLarge || 0;
@@ -2246,6 +2255,13 @@
             btn.innerHTML = '<i class="bi bi-check-circle me-2"></i>บันทึกข้อมูลวันนี้';
             btn.classList.replace('btn-warning', 'btn-primary');
           }
+        })
+        .catch(function (error) {
+          btn.disabled = false;
+          inputs.forEach(el => el.disabled = false);
+          btn.innerHTML = '<i class="bi bi-check-circle me-2"></i>บันทึกข้อมูลวันนี้';
+          btn.classList.add('btn-primary');
+          btn.classList.remove('btn-warning');
         });
     }
 
