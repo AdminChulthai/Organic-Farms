@@ -1733,16 +1733,31 @@
       <!-- Submission Status View -->
       <div id="viewAdminSubmission" style="display:none;">
         <div class="card-custom p-3 mb-4 shadow-sm border-0" style="background: #ffffff;">
-          <div class="d-flex align-items-center mb-3">
-            <div class="bg-warning bg-opacity-10 p-2 rounded-3 me-2">
-              <i class="bi bi-clipboard-check text-warning"></i>
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <div class="d-flex align-items-center">
+              <div class="bg-warning bg-opacity-10 p-2 rounded-3 me-2">
+                <i class="bi bi-clipboard-check text-warning"></i>
+              </div>
+              <h6 class="mb-0 fw-bold text-dark" style="font-size: 0.95rem;">ตรวจสอบสถานะการส่งข้อมูล</h6>
             </div>
-            <h6 class="mb-0 fw-bold text-dark" style="font-size: 0.95rem;">ตรวจสอบสถานะประจำวัน</h6>
+            <!-- Mode Toggle -->
+            <div class="btn-group btn-group-sm rounded-pill overflow-hidden border">
+              <input type="radio" class="btn-check" name="subMode" id="subModeDaily" checked onclick="toggleSubMode('daily')">
+              <label class="btn btn-outline-warning" for="subModeDaily">รายวัน</label>
+              <input type="radio" class="btn-check" name="subMode" id="subModeMonthly" onclick="toggleSubMode('monthly')">
+              <label class="btn btn-outline-warning" for="subModeMonthly">รายเดือน</label>
+            </div>
           </div>
+          
           <div class="row g-2 align-items-end">
-            <div class="col">
+            <div class="col" id="subStatusDailyWrap">
               <label class="small fw-bold text-muted mb-1 d-block" style="font-size: 0.65rem;">เลือกวันที่ตรวจ</label>
               <input type="date" id="subStatusDate" class="form-control form-control-sm border-0 bg-light fw-bold" 
+                onchange="loadSubmissionStatus()" style="border-radius: 10px;">
+            </div>
+            <div class="col" id="subStatusMonthlyWrap" style="display:none;">
+              <label class="small fw-bold text-muted mb-1 d-block" style="font-size: 0.65rem;">เลือกเดือนที่ตรวจ</label>
+              <input type="month" id="subStatusMonth" class="form-control form-control-sm border-0 bg-light fw-bold" 
                 onchange="loadSubmissionStatus()" style="border-radius: 10px;">
             </div>
             <div class="col-auto">
@@ -2498,11 +2513,14 @@
         const subDate = document.getElementById('subStatusDate');
         if (!subDate.value) subDate.value = new Date().toISOString().split('T')[0];
 
+        const subMonth = document.getElementById('subStatusMonth');
+        if (!subMonth.value) subMonth.value = new Date().toISOString().substring(0, 7);
+
         stats.innerHTML = `
         <div class="admin-stat-card stat-warning" style="grid-column: 1 / -1;">
           <div class="admin-stat-icon">📋</div>
           <div class="admin-stat-value" id="statSubmissionOverview">- / -</div>
-          <div class="admin-stat-label">ส่งข้อมูลแล้ว / ทั้งหมด</div>
+          <div class="admin-stat-label" id="statSubmissionLabel">ส่งข้อมูลแล้ว / ทั้งหมด</div>
         </div>
       `;
         loadSubmissionStatus();
@@ -3152,9 +3170,19 @@
       isProcessing = false;
     }
 
+    function toggleSubMode(m) {
+      document.getElementById('subStatusDailyWrap').style.display = m === 'daily' ? 'block' : 'none';
+      document.getElementById('subStatusMonthlyWrap').style.display = m === 'monthly' ? 'block' : 'none';
+      loadSubmissionStatus();
+    }
+
     function loadSubmissionStatus() {
-      const dateStr = document.getElementById('subStatusDate').value;
-      if (!dateStr) return;
+      const isMonthly = document.getElementById('subModeMonthly').checked;
+      const apiAction = isMonthly ? 'getMonthlySubmissionStatus' : 'getSubmissionStatus';
+      const paramName = isMonthly ? 'monthStr' : 'dateStr';
+      const paramVal = document.getElementById(isMonthly ? 'subStatusMonth' : 'subStatusDate').value;
+
+      if (!paramVal) return;
 
       const list = document.getElementById('listAdminSubmission');
       list.innerHTML = `
@@ -3164,10 +3192,11 @@
       </div>
     `;
 
-      callGasApi('getSubmissionStatus', { dateStr: dateStr })
+      callGasApi(apiAction, { [paramName]: paramVal })
         .then(function (res) {
           if (res.status === 'success') {
-            renderSubmissionStatus(res.data);
+            if (isMonthly) renderMonthlySubmissionStatus(res.data);
+            else renderSubmissionStatus(res.data);
           } else {
             list.innerHTML = `<div class="alert alert-danger mx-3">${res.message}</div>`;
           }
@@ -3180,6 +3209,8 @@
     function renderSubmissionStatus(data) {
       const list = document.getElementById('listAdminSubmission');
       const overview = document.getElementById('statSubmissionOverview');
+      const label = document.getElementById('statSubmissionLabel');
+      label.innerText = 'ส่งข้อมูลแล้ว / ทั้งหมด (รายวัน)';
 
       const submittedCount = data.filter(f => f.status === 'submitted').length;
       overview.innerText = `${submittedCount} / ${data.length}`;
@@ -3203,6 +3234,41 @@
             <span class="badge rounded-pill px-3 py-2 ${badgeClass}">
               ${isSub ? 'เรียบร้อย' : 'รอดำเนินการ'}
             </span>
+          </div>
+        </div>
+      `;
+      });
+    }
+
+    function renderMonthlySubmissionStatus(data) {
+      const list = document.getElementById('listAdminSubmission');
+      const overview = document.getElementById('statSubmissionOverview');
+      const label = document.getElementById('statSubmissionLabel');
+      label.innerText = 'ส่งแล้วรวม / จำนวนวันที่ตรวจ (เฉลี่ยรายเดือน)';
+
+      const totalAll = data.reduce((sum, f) => sum + f.submitted, 0);
+      const totalPossible = data.reduce((sum, f) => sum + f.total, 0);
+      overview.innerText = `${totalAll} / ${totalPossible}`;
+
+      list.innerHTML = '';
+      data.forEach((f, idx) => {
+        const percent = Math.round((f.submitted / f.total) * 100);
+        let color = '#10b981'; // Green
+        let bg = '#f0fdf4';
+        if (f.status === 'warning') { color = '#f59e0b'; bg = '#fffbeb'; }
+        if (f.status === 'critical') { color = '#ef4444'; bg = '#fef2f2'; }
+
+        list.innerHTML += `
+        <div class="card-custom p-3 mb-2 animate-in shadow-sm border-0" style="border-left: 4px solid ${color}; background: ${bg}; animation-delay: ${idx * 0.05}s;">
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <div class="fw-bold text-dark">${f.name}</div>
+            <div class="text-end">
+              <span class="fw-bold" style="color: ${color}">${f.submitted}/${f.total} วัน</span>
+              <small class="text-muted d-block" style="font-size: 0.7rem;">ประจำเดือนนี้</small>
+            </div>
+          </div>
+          <div class="progress" style="height: 6px; border-radius: 10px; background: rgba(0,0,0,0.05);">
+            <div class="progress-bar" role="progressbar" style="width: ${percent}%; background-color: ${color}; border-radius: 10px;"></div>
           </div>
         </div>
       `;
