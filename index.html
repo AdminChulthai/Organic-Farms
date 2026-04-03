@@ -1512,6 +1512,131 @@
       }
     }
 
+    /* === ADMIN SIDEBAR & HAMBURGER === */
+    .admin-menu-toggle {
+      background: rgba(255, 255, 255, 0.2);
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      color: white;
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      z-index: 1050;
+      backdrop-filter: blur(5px);
+    }
+
+    .admin-menu-toggle:active {
+      transform: scale(0.9);
+    }
+
+    .admin-sidebar-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(4px);
+      z-index: 1060;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.4s ease;
+    }
+
+    .admin-sidebar-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .admin-sidebar {
+      position: fixed;
+      top: 0;
+      right: -280px;
+      width: 280px;
+      height: 100vh;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(15px);
+      z-index: 1070;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: -10px 0 30px rgba(0, 0, 0, 0.1);
+      padding: 2rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .admin-sidebar.active {
+      right: 0;
+    }
+
+    .admin-sidebar-header {
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 2px solid #f3f4f6;
+    }
+
+    .admin-sidebar-title {
+      font-weight: 800;
+      font-size: 1.25rem;
+      color: #1f2937;
+      margin: 0;
+    }
+
+    .admin-sidebar-menu {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .admin-sidebar-item {
+      display: flex;
+      align-items: center;
+      padding: 1rem 1.25rem;
+      border-radius: 16px;
+      color: #4b5563;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      background: transparent;
+      border: 1px solid transparent;
+      cursor: pointer;
+    }
+
+    .admin-sidebar-item i, .admin-sidebar-item span.icon {
+      font-size: 1.5rem;
+      margin-right: 1rem;
+      width: 32px;
+      text-align: center;
+    }
+
+    .admin-sidebar-item:hover {
+      background: #f9fafb;
+      color: var(--primary-green);
+    }
+
+    .admin-sidebar-item.active {
+      background: linear-gradient(135deg, var(--primary-green), var(--primary-dark));
+      color: white !important;
+      box-shadow: 0 4px 15px rgba(22, 163, 74, 0.3);
+      border-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .admin-sidebar-close {
+      position: absolute;
+      top: 1.5rem;
+      right: 1.5rem;
+      background: #f3f4f6;
+      border: none;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #6b7280;
+      cursor: pointer;
+    }
+
     /* === ANIMATIONS === */
     @keyframes slideInUp {
       from {
@@ -1624,43 +1749,68 @@
     <!-- Admin Header -->
     <div class="admin-header">
       <div class="admin-header-content">
-        <div class="admin-title-section">
-          <div class="admin-icon-badge">
-            <i class="bi bi-graph-up-arrow"></i>
+        <div class="admin-title-section d-flex justify-content-between align-items-center w-100">
+          <div class="d-flex align-items-center">
+            <div class="admin-icon-badge me-3">
+              <i class="bi bi-graph-up-arrow"></i>
+            </div>
+            <div class="admin-title-text">
+              <h1 class="admin-main-title">Admin Panel</h1>
+              <p class="admin-subtitle mb-0">Organic Farm Management</p>
+            </div>
           </div>
-          <div class="admin-title-text">
-            <h1 class="admin-main-title">Admin Dashboard</h1>
-            <p class="admin-subtitle">ระบบจัดการฟาร์มออร์แกนิค</p>
-          </div>
+          
+          <!-- Hamburger Toggle Button -->
+          <button class="admin-menu-toggle" onclick="toggleAdminMenu()">
+            <i class="bi bi-list fs-3"></i>
+          </button>
         </div>
 
-        <!-- Navigation Cards -->
-        <div class="admin-nav-cards">
-          <div class="admin-nav-card active" id="navCardChicken" onclick="switchAdminView('chicken')">
-            <div class="admin-nav-icon">🐔</div>
-            <div class="admin-nav-label">ภาพรวมไก่</div>
-            <div class="admin-nav-sublabel">จำนวนและสูญเสีย</div>
-          </div>
-          <div class="admin-nav-card" id="navCardEgg" onclick="switchAdminView('egg')">
-            <div class="admin-nav-icon">🥚</div>
-            <div class="admin-nav-label">สถิติไข่</div>
-            <div class="admin-nav-sublabel">ผลผลิตรายวัน</div>
-          </div>
-          <div class="admin-nav-card" id="navCardRedemption" onclick="switchAdminView('redemption')">
-            <div class="admin-nav-icon">🎁</div>
-            <div class="admin-nav-label">จัดการรางวัล</div>
-            <div class="admin-nav-sublabel">ส่งมอบของแลก</div>
-          </div>
-          <div class="admin-nav-card" id="navCardSubmission" onclick="switchAdminView('submission')">
-            <div class="admin-nav-icon">📋</div>
-            <div class="admin-nav-label">สถานะการส่ง</div>
-            <div class="admin-nav-sublabel">ตรวจสอบการกรอก</div>
-          </div>
-          <div class="admin-nav-card" id="navCardDetail" onclick="switchAdminView('detail')">
-            <div class="admin-nav-icon">🔍</div>
-            <div class="admin-nav-label">รายเล้า</div>
-            <div class="admin-nav-sublabel">วิเคราะห์เชิงลึก</div>
-          </div>
+        <!-- Hidden Navigation Cards (Kept for switching logic compatibility) -->
+        <div class="admin-nav-cards" style="display:none !important;">
+          <div class="admin-nav-card" id="navCardChicken"></div>
+          <div class="admin-nav-card" id="navCardEgg"></div>
+          <div class="admin-nav-card" id="navCardRedemption"></div>
+          <div class="admin-nav-card" id="navCardSubmission"></div>
+          <div class="admin-nav-card" id="navCardDetail"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== Sidebar Menu ===== -->
+    <div class="admin-sidebar-overlay" id="adminSidebarOverlay" onclick="toggleAdminMenu()"></div>
+    <div class="admin-sidebar" id="adminSidebar">
+      <button class="admin-sidebar-close" onclick="toggleAdminMenu()">
+        <i class="bi bi-x-lg"></i>
+      </button>
+      <div class="admin-sidebar-header">
+        <h2 class="admin-sidebar-title">เมนูจัดการระบบ</h2>
+      </div>
+      <div class="admin-sidebar-menu">
+        <div class="admin-sidebar-item" id="sideCardChicken" onclick="switchAdminView('chicken')">
+          <span class="icon">🐔</span>
+          <span>ภาพรวมไก่</span>
+        </div>
+        <div class="admin-sidebar-item" id="sideCardEgg" onclick="switchAdminView('egg')">
+          <span class="icon">🥚</span>
+          <span>สถิติไข่</span>
+        </div>
+        <div class="admin-sidebar-item" id="sideCardRedemption" onclick="switchAdminView('redemption')">
+          <span class="icon">🎁</span>
+          <span>จัดการรางวัล</span>
+        </div>
+        <div class="admin-sidebar-item" id="sideCardSubmission" onclick="switchAdminView('submission')">
+          <span class="icon">📋</span>
+          <span>สถานะการส่ง</span>
+        </div>
+        <div class="admin-sidebar-item" id="sideCardDetail" onclick="switchAdminView('detail')">
+          <span class="icon">🔍</span>
+          <span>รายเล้า</span>
+        </div>
+        <hr class="my-2">
+        <div class="admin-sidebar-item text-danger" onclick="logout()">
+          <i class="bi bi-box-arrow-right"></i>
+          <span>ออกจากระบบ</span>
         </div>
       </div>
     </div>
@@ -2435,13 +2585,44 @@
     }
 
     // ===== ADMIN FUNCTIONS =====
+    function toggleAdminMenu(force) {
+      const sidebar = document.getElementById('adminSidebar');
+      const overlay = document.getElementById('adminSidebarOverlay');
+      const isActive = (force !== undefined) ? force : !sidebar.classList.contains('active');
+
+      if (isActive) {
+        sidebar.classList.add('active');
+        overlay.classList.add('active');
+      } else {
+        sidebar.classList.remove('active');
+        overlay.classList.remove('active');
+      }
+    }
+
     function switchAdminView(m) {
       if (!adminDataCache) return;
 
-      ['navCardChicken', 'navCardEgg', 'navCardRedemption', 'navCardSubmission', 'navCardDetail'].forEach(id =>
-        document.getElementById(id).classList.remove('active'));
+      // Update sidebar items highlighting
+      ['sideCardChicken', 'sideCardEgg', 'sideCardRedemption', 'sideCardSubmission', 'sideCardDetail'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.classList.remove('active');
+      });
+
+      const sideMap = {
+        'chicken': 'sideCardChicken',
+        'egg': 'sideCardEgg',
+        'redemption': 'sideCardRedemption',
+        'submission': 'sideCardSubmission',
+        'detail': 'sideCardDetail'
+      };
+      if (sideMap[m]) document.getElementById(sideMap[m]).classList.add('active');
+
+      // Hide all views
       ['viewAdminChicken', 'viewAdminEgg', 'viewAdminRedemption', 'viewAdminSubmission', 'viewAdminDetail'].forEach(id =>
         document.getElementById(id).style.display = 'none');
+
+      // Close menu if open
+      toggleAdminMenu(false);
 
       const stats = document.getElementById('adminStatsContainer');
 
